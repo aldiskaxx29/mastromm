@@ -38,21 +38,21 @@
                                 $amount = 1 * $pesan_detail->harga-$pesan_detail->harga*$pesan_detail->promo_bronze/100;
                             } else {
                                 $amount = 1 * $pesan_detail->harga;
-                            } 
+                            }
                         } elseif($user->level_id == 5) {
                             if ($pesan_detail->status == '1') {
                                 $amount = 1 * $pesan_detail->harga-$pesan_detail->harga*$pesan_detail->promo_silver/100;
                             } else {
                                 $amount = 1 * $pesan_detail->harga;
-                            } 
+                            }
                         } elseif($user->level_id == 6) {
                             if ($pesan_detail->status == '1') {
                                 $amount = 1 * $pesan_detail->harga-$pesan_detail->harga*$pesan_detail->promo_gold/100;
                             } else {
                                 $amount = 1 * $pesan_detail->harga;
-                            } 
+                            }
                         }
-                                      
+
                         @endphp
                         <tr>
                             {{-- <td>{{ $no+1 }}</td> --}}
@@ -182,7 +182,7 @@
                                         <span class="input-group-text">Rp</span>
                                     </div>
                                     {{-- <input type="text" class="form-control" > --}}
-                                    <input type="text" name="total_harga" class="form-control total_harga" value="{{ $totalHarga }}" readonly>
+                                    <input type="text" name="total_harga" class="form-control total_harga" value="0" readonly>
                                 </div>
                             </td>
                             <td >
@@ -231,6 +231,7 @@
                 $(ElTr.find('.jumlah')).prop('readonly', true);
                 $(ElTr.find('.product-flag')).val(0);
             }
+            jmlPembelian();
 
         });
     });
@@ -240,22 +241,33 @@
         e.preventDefault();
         let El = $(this).parent().parent();
         calculationPrice(El);
+        jmlPembelian();
     });
 
     function calculationPrice(El)
     {
+
         let qty = $(El.find('.jumlah')).val();
         let price = $(El.find('.harga')).val();
         let amount = qty * price;
         $(El.find('.hasil')).val(amount);
+    }
 
-        // Total Harga
-        let Amounts = $('.hasil');
+    function jmlPembelian()
+    {
+        let Element = $('#keranjangTable');
         var subTotal = 0;
-        for (var i = 0; i < Amounts.length; i++) {
-            subTotal = parseFloat(subTotal) + parseFloat($(Amounts[i]).val());
+        for(let i = 0; i < $(Element.find('.check_produk')).length; i++)
+        {
+            let statusChecked = $(Element.find('tr')).eq(i).find('.check_produk');
+
+            if($(statusChecked).prop("checked")){
+                let Amount = $(Element.find('tr')).eq(i).find('.hasil').val();
+                console.log(Amount);
+                subTotal = parseFloat(subTotal) + parseFloat(Amount);
+            }
+            $('.total_harga').val(subTotal);
         }
-        $('.total_harga').val(subTotal);
     }
 </script>
 @endsection

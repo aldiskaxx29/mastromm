@@ -79,14 +79,12 @@ class KeranjangController extends Controller
 
 
         $keranjang = DB::table('keranjang')
-        ->join('users','keranjang.users_id','=','users.id')
-        ->join('produk','keranjang.produk_id','=','produk.id')
-        ->join('promo','produk.promo_id','=','promo.id')
-        ->select('keranjang.*','produk.nama_produk','produk.foto_produk','produk.harga','promo.promo_bronze','promo.promo_silver','promo.promo_gold','promo.status')
-        ->where('keranjang.users_id', Auth::user()->id)
-        ->get();
-
-        // dd($keranjang);
+            ->join('users','keranjang.users_id','=','users.id')
+            ->join('produk','keranjang.produk_id','=','produk.id')
+            ->join('promo','produk.promo_id','=','promo.id')
+            ->select('keranjang.*','produk.nama_produk','produk.foto_produk','produk.harga','promo.promo_bronze','promo.promo_silver','promo.promo_gold','promo.status')
+            ->where('keranjang.users_id', Auth::user()->id)
+            ->get();
 
         $user = DB::table('users')->where('id', Auth::user()->id)->first();
         return view('keranjang', compact('keranjang','user'));
