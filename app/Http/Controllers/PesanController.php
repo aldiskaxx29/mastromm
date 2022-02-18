@@ -20,7 +20,7 @@ use App\Models\Book;
 
 class PesanController extends Controller
 {
-    public function index($id){
+    public function index($id){             
         $barangs = DB::table('produk')->get();
 
         $barang = DB::table('produk')
@@ -408,12 +408,13 @@ class PesanController extends Controller
     }
 
     public function langsungBeli($id){
+
         $user = User::where('id', Auth::user()->id)->first();
         // $produk = Produk::find($id);
         $produk = DB::table('produk')
                 ->join('promo','produk.promo_id','=','promo.id')
-                ->where('produk.id', $id)
                 ->select('produk.*','promo.status','promo.promo_bronze','promo.promo_silver','promo.promo_gold')
+                ->where('produk.id', $id)
                 ->first();
         // dd($produk);
         return view('langsungbeli', compact('produk','user'));
@@ -432,13 +433,15 @@ class PesanController extends Controller
         $pesan->nama_penerima = $request->nama;
         $pesan->no_telepon_penerima = $request->no_telepon;
         $pesan->alamat_penerima = $request->alamat;
+        $pesan->pembayaran = $request->pembayaran;
         $pesan->save();
 
         $detail_transaksi = new DetailTransaksi;
         $detail_transaksi->transaksi_id = $pesan->id;
         $detail_transaksi->produk_id = $request->id_produk;
         $detail_transaksi->qty = $request->jumlah_pesan;
-        $detail_transaksi->sub_total = $request->harga;
+        // $detail_transaksi->sub_total = $request->hasil;
+        $detail_transaksi->sub_total = $request->total_harga;
         $detail_transaksi->save();
 
         // $produk_stok = Produk::find($request->id_produk);

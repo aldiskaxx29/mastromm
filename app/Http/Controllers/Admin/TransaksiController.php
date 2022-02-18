@@ -17,7 +17,7 @@ class TransaksiController extends Controller
         ->join('transaksi','detail_transaksi.transaksi_id','=','transaksi.id')
         ->join('produk','detail_transaksi.produk_id','=','produk.id')
         ->join('promo','produk.promo_id','=','promo.id')
-        ->select('detail_transaksi.qty','detail_transaksi.id','detail_transaksi.transaksi_id','detail_transaksi.created_at','transaksi.status','transaksi.kode_transaksi','transaksi.nama_penerima','produk.nama_produk','produk.harga','detail_transaksi.qty','promo.promo') 
+        ->select('detail_transaksi.qty','detail_transaksi.id','detail_transaksi.transaksi_id','detail_transaksi.created_at','transaksi.status','transaksi.kode_transaksi','transaksi.nama_penerima','produk.nama_produk','produk.harga','detail_transaksi.qty','promo.promo_bronze','promo.promo_silver','promo.promo_gold') 
         ->orderBy('id','DESC')
         ->get();
 

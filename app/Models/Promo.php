@@ -12,7 +12,9 @@ class Promo extends Model
     protected $table = 'promo';
 
     protected $fillable = [
-        'promo',
+        'promo_bronze',
+        'promo_silver',
+        'promo_gold',
         'foto_promo',
         'status',
     ];

@@ -115,6 +115,11 @@ class UsersController extends Controller
         return redirect('users')->with('message','Level Berhasil Di Ubah');
     }
 
+    public function detail($id){
+        $user = User::find($id);
+        return view('admin.users.detail', compact('user'));
+    }
+
     public function hapus($id){
         User::where('id', $id)->delete();
         return redirect('users')->with('message','Berhasil Di Hapus');

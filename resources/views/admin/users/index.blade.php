@@ -67,13 +67,14 @@
                                           <small class="badge badge-danger" style="cursor:pointer;"  data-toggle="modal" data-target="#exampleModalStatus{{$item->id}}">Tidak Aktif</small>
                                         @endif
                                       </td>
-                                      <td>
+                                      <td width="200">
                                         <form action="{{ url('hapus_user/' . $item->id) }}" method="post">
                                           @csrf
                                           @method('DELETE')
                                           <div class="form-group">
                                             <button type="submit" class="btn btn-danger btn-sm show_confirm"><i class="fas fa-trash"></i></button>
                                             <a href="#" class="btn btn-info btn-sm" data-toggle="modal" data-target="#exampleModalUbah{{$item->id}}"><i class="fas fa-edit"></i></a>
+                                            <a href="{{ url('user-detail')}}/{{ $item->id }}" class="btn btn-warning btn-sm"><i class="fas fa-eye"></i></a>
                                           </div>
                                         </form>
                                           {{-- <a href="{{ url('hapus_user/' . $item->id) }}" class="btn btn-danger btn-sm" onclick="return confirm('Yakin Ingin Di Hapus')"><i class="fas fa-trash"></i></a> --}}

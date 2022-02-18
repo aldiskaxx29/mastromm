@@ -70,9 +70,11 @@
                           <form action="{{ url('hapusTransaksi') }}/{{ $item->id }}" method="post">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-danger btn-sm show_confirm"><i class="fas fa-trash"></i></button>
+                            <div class="form-group">
+                              <button type="submit" class="btn btn-danger btn-sm show_confirm"><i class="fas fa-trash"></i></button>
+                              {{-- <a href="{{ url('ubahTransaksi') }}/{{ $item->transaksi_id }}" class="btn btn-info btn-sm" ><i class="fas fa-edit"></i></a> --}}
+                            </div>
                           </form>
-                          {{-- <a href="{{ url('hapusTransaksi') }}/{{ $item->transaksi_id }}" class="btn btn-danger btn-sm" onclick="return confirm('Yakin Ingin Di Hapus?')"><i class="fas fa-trash"></i></a> --}}
                         </td>
                       </tr>
                   @endforeach

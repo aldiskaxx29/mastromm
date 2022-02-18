@@ -39,7 +39,7 @@ class ProdukController extends Controller
         ->join('merek', 'produk.merek_id', '=', 'merek.id')
         ->join('promo', 'produk.promo_id', '=', 'promo.id')
         // ->select('produk.nama_produk')
-        ->select('produk.*','kategori.kategori','merek.merek')
+        ->select('produk.*','kategori.kategori','merek.merek','promo.promo_bronze','promo.promo_silver','promo.promo_gold')
         ->where('produk.id', '=' ,$id)
         ->first();
 

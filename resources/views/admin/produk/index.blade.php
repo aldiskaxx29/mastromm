@@ -115,7 +115,7 @@
             <select name="promo" id="" class="form-control">
               <option value=" ">-- Pilihan --</option>
               @foreach ($promo as $item)
-                <option value="{{ $item->id }}">{{ $item->promo }}</option>
+                <option value="{{ $item->id }}">{{ $item->id }}</option>
               @endforeach
               @error('promo')
                   <small class="text-danger">{{ $message }}</small>

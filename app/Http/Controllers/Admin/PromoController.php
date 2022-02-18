@@ -15,8 +15,11 @@ class PromoController extends Controller
     }
 
     public function tambah(Request $request){
+        // dd($request->all());
         $request->validate([
-            'promo' => 'required',
+            'promo_bronze' => 'required',
+            'promo_silver' => 'required',
+            'promo_gold' => 'required',
             'foto_promo' => 'required|file|image|mimes:jpeg,png,jpg|max:1024',
             'status' => 'required'
         ]);
@@ -34,7 +37,9 @@ class PromoController extends Controller
 
         // $data = $request->only('promo');
         $dataPoto = [
-            'promo' => 0,
+            'promo_bronze' => $request->promo_bronze,
+            'promo_silver' => $request->promo_silver,
+            'promo_gold' => $request->promo_gold,
             'foto_promo' => $potoName,
             'status' => $request->status
         ];
@@ -48,13 +53,17 @@ class PromoController extends Controller
     public function ubah(Request $request, $id){
 
         $request->validate([
-            'promo' => 'required',
+            'promo_bronze' => 'required',
+            'promo_silver' => 'required',
+            'promo_gold' => 'required',
             // 'foto_promo' => 'required|file|image|mimes:jpeg,png,jpg|max:2048',
         ]);
 
         $promo = Promo::find($id);
          
-        $promo->promo = $request->promo;
+        $promo->promo_bronze = $request->promo_bronze;
+        $promo->promo_silver = $request->promo_silver;
+        $promo->promo_gold = $request->promo_gold;
         $promo->status = $request->status;
 
         

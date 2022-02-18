@@ -59,9 +59,9 @@
                     <select name="promo" id="" class="form-control">
                       @foreach ($promo as $p)
                           @if ($p->id == $produk->promo_id)
-                            <option value="{{ $p->id }}" selected>{{ $p->promo }}</option>
+                            <option value="{{ $p->id }}" selected>{{ $p->id }}</option>
                           @else
-                            <option value="{{ $p->id }}">{{ $p->promo }}</option>
+                            <option value="{{ $p->id }}">{{ $p->id }}</option>
                           @endif
                       @endforeach
                       @error('promo')

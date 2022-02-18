@@ -121,6 +121,7 @@ Route::group(['middleware' => ['cekLogin']], function(){
         Route::post('ubah_user/{id}', [App\Http\Controllers\Admin\UsersController::class, 'ubah']);
         Route::post('ubah_status/{id}', [App\Http\Controllers\Admin\UsersController::class, 'ubahStatus']);
         Route::post('ubah_role/{id}', [App\Http\Controllers\Admin\UsersController::class, 'ubahRole']);
+        Route::get('user-detail/{id}', [App\Http\Controllers\Admin\UsersController::class, 'detail']);
 
 
         //produk

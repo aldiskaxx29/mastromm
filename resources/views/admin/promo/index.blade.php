@@ -26,7 +26,9 @@
                           <thead>
                               <tr>
                                   <th>No</th>
-                                  <th>Promo</th>
+                                  <th>Promo Bronze</th>
+                                  <th>Promo Silver</th>
+                                  <th>Promo Gold</th>
                                   <th>Foto Promo</th>
                                   <th>Status</th>
                                   <th>Action</th>
@@ -36,7 +38,9 @@
                               @foreach ($promo as $no => $item)
                                   <tr>
                                       <td>{{ $no+1 }}</td>
-                                      <td>{{ $item->promo }}</td>
+                                      <td>{{ $item->promo_bronze }}</td>
+                                      <td>{{ $item->promo_silver }}</td>
+                                      <td>{{ $item->promo_gold }}</td>
                                       <td><img src="{{ asset('promo/'.$item->foto_promo) }}" alt="" width="100px"></td>
                                       <td>
                                         @if ($item->status == 1)
@@ -81,9 +85,23 @@
             <form action="{{ url('tambah_promo') }}" enctype="multipart/form-data" method="post">
                 @csrf
                 <div class="form-group">
-                    <label for="">Promo</label>
-                    <input type="text" name="promo" class="form-control">
-                    @error('promo')
+                    <label for="">Promo Bronze</label>
+                    <input type="number" name="promo_bronze" class="form-control">
+                    @error('promo_bronze')
+                        <small class="text-danger">{{ $message }}</small>
+                    @enderror
+                </div>
+                <div class="form-group">
+                    <label for="">Promo Silver</label>
+                    <input type="number" name="promo_silver" class="form-control">
+                    @error('promo_silver')
+                        <small class="text-danger">{{ $message }}</small>
+                    @enderror
+                </div>
+                <div class="form-group">
+                    <label for="">Promo Gold</label>
+                    <input type="number" name="promo_gold" class="form-control">
+                    @error('promo_gold')
                         <small class="text-danger">{{ $message }}</small>
                     @enderror
                 </div>
@@ -127,9 +145,23 @@
             <form action="{{ url('ubah_promo/'.$item->id) }}" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group">
-                    <label for="">Promo</label>
-                    <input type="text" name="promo" class="form-control" value="{{$item->promo}}">
-                    @error('promo')
+                    <label for="">Promo Bronze</label>
+                    <input type="number" name="promo_bronze" class="form-control" value="{{$item->promo_bronze}}">
+                    @error('promo_bronze')
+                        <small class="text-danger">{{ $message }}</small>
+                    @enderror
+                </div>
+                <div class="form-group">
+                    <label for="">Promo Silver</label>
+                    <input type="number" name="promo_silver" class="form-control" value="{{$item->promo_silver}}">
+                    @error('promo_silver')
+                        <small class="text-danger">{{ $message }}</small>
+                    @enderror
+                </div>
+                <div class="form-group">
+                    <label for="">Promo Gold</label>
+                    <input type="number" name="promo_gold" class="form-control" value="{{$item->promo_gold}}">
+                    @error('promo_gold')
                         <small class="text-danger">{{ $message }}</small>
                     @enderror
                 </div>

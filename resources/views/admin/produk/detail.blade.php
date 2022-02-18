@@ -47,6 +47,21 @@
                                 <td>:</td>
                                 <td>Rp. {{ number_format($produk->harga,'0',',','.') }}</td>
                             </tr>
+                            <tr>
+                                <th>Promo Bronze</th>
+                                <td>:</td>
+                                <td>{{ $produk->promo_bronze}}</td>
+                            </tr>
+                            <tr>
+                                <th>Promo Silver</th>
+                                <td>:</td>
+                                <td>{{$produk->promo_silver}}</td>
+                            </tr>
+                            <tr>
+                                <th>Promo Gold</th>
+                                <td>:</td>
+                                <td>{{$produk->promo_gold}}</td>
+                            </tr>
                             {{-- @endforeach --}}
                         </table>
                     </div>

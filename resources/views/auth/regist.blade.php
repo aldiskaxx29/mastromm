@@ -5,12 +5,9 @@
 @section('content')
     <div class="row">
         <div class="col-md-6">
-            {{-- <h1>Maxtrom</h1> --}}
             <img src="../sip.png" alt="">
         </div>
         <div class="col-md-6" style="overflow-x: auto;background:rgb(28, 23, 14);">
-        {{-- <div class="col-md-6" style="overflow-x: auto;"> --}}
-            {{-- <p class="text-center mt-2"></p> --}}
             <div class="col">
                 <h2 class="text-center font-weight-bold mb-4 text-white">Silahkan Daftar Akun</h2>
                 <form action="{{ route('registrasi') }}" class="mb-2" method="post">
@@ -111,15 +108,10 @@
                         @enderror
                     </div>
                     <div class="form-group row">
-                      {{-- <div class="col-md-4"></div> --}}
                       <div class="col-md-6">
-                          {{-- {!! NoCaptcha::renderJs('fr', true, 'recaptchaCallback') !!} --}}
                           {!! NoCaptcha::display() !!}
                           {!! NoCaptcha::renderJs() !!}
                           @error('g-recaptcha-response')
-                          {{-- <span class="text-danger" role="alert">
-                              <strong>{{ $message }}</strong>
-                          </span> --}}
                           <small class="text-danger">{{ $message }}</small>
                           @enderror
                       </div>

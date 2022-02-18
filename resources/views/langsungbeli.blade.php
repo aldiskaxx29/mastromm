@@ -12,7 +12,7 @@
         <div class="row justify-content-center">
             <div class="col-md-6">
                 <strong>Alamat Pengiriman</strong>
-                                    <hr>
+                <hr>
             <form action="{{url('konfirm-beli')}}"  method="post" class="perhitungan">
                 @csrf
             <div class="form-group">
@@ -24,7 +24,15 @@
             <div class="form-group">
                 <textarea name="alamat" id="" cols="30" rows="3" class="form-control" >{{ $user->alamat }}</textarea> 
             </div>
-            {{-- <a href="{{ url('ubah-alamat') }}" class="btn btn-light btn-sm text-warning">Ubah Alamat</a> --}}
+            <strong>Metode Pembayaran</strong>
+            <hr>
+            <div class="form-group">
+                <select class="form-control" name="pembayaran">
+                    <option value="1">CAS</option>
+                    <option value="2">COD</option>
+                    <option value="3">TOP</option>
+                </select>
+            </div>
             </div>
         </div>
         {{-- <br> --}}
@@ -64,40 +72,17 @@
                                 {{-- <input type="number" name="jumlah_pesan-{{ $produk->id }}" min="1" placeholder="1" class="form-control jumlah" id="jumlah{{$no}}" value="1" data-id="{{ $no }}"> --}}
                                 <input type="number" name="jumlah_pesan" min="1" placeholder="1" class="form-control jumlah" id="jumlah{{$produk->id}}" value="1" data-id="{{ $produk->id }}">
                             </td>
-                            {{-- @if ($produk->status == '1')
-                                
-                                <td style="width:200px;">
-                                    <div class="input-group mb-3">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text">Rp</span>
-                                        </div>
-                                        <input type="number" name="harga" min="1" placeholder="1" class="form-control harga{{$produk->id}}" id="rupiah" value="{{ $produk->harga-$produk->harga*$produk->promo/100}}" readonly>
-                                    </div>
-                                </td>
-                            @else
-                                
-                                <td style="width:200px;">
-                                    <div class="input-group mb-3">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text">Rp</span>
-                                        </div>
-                                        <input type="number" name="harga" min="1" placeholder="1" class="form-control harga{{$produk->id}}" id="rupiah" value="{{ $produk->harga}}" readonly>
-                                    </div>
-                                </td>
-                            @endif --}}
                             @if ($user->level_id == 4)
                                 @if ($produk->status == '1')
-                                    {{-- <td id="harga" name="harga">Rp. {{ number_format($produk->harga-$produk->harga*$produk->promo/100,0,',','.') }}</td> --}}
                                     <td>
                                         <div class="input-group mb-3">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">Rp</span>
                                             </div>
-                                            <input type="number" name="harga" min="1" placeholder="1" class="form-control harga" value="{{ $produk->harga }}" readonly>
+                                            <input type="number" name="harga" min="1" placeholder="1" class="form-control harga" value="{{ $produk->harga-$produk->harga*$produk->promo_bronze/100 }}" readonly>
                                         </div>
                                     </td>
                                 @else
-                                    {{-- <td name="harga">Rp. {{number_format($produk->harga,0,',','.')}}</td> --}}
                                     <td>
                                         <div class="input-group mb-3">
                                             <div class="input-group-prepend">
@@ -109,29 +94,26 @@
                                 @endif
                             @elseif($user->level_id == 5)
                                 @if ($produk->status == '1')
-                                    {{-- <td id="harga" name="harga">Rp. {{ number_format($produk->harga-$produk->harga*$produk->promo/100,0,',','.') }}</td> --}}
                                     <td>
                                         <div class="input-group mb-3">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">Rp</span>
                                             </div>
-                                            <input type="number" name="harga" min="1" placeholder="1" class="form-control harga" id="rupiah" value="{{ $produk->harga }}" readonly>
+                                            <input type="number" name="harga" min="1" placeholder="1" class="form-control harga"  value="{{ $produk->harga-$produk->harga*$produk->promo_silver/100 }}" readonly>
                                         </div>
                                     </td>
                                 @else
-                                    {{-- <td name="harga">Rp. {{number_format($produk->harga,0,',','.')}}</td> --}}
                                     <td>
                                         <div class="input-group mb-3">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">Rp</span>
                                             </div>
-                                            <input type="number" name="harga" min="1" placeholder="1" class="form-control harga" value="{{ $produk->harga }}" id="rupiah" readonly>
+                                            <input type="number" name="harga" min="1" placeholder="1" class="form-control harga" value="{{ $produk->harga }}"  readonly>
                                         </div>
                                     </td>
                                 @endif
                             @elseif($user->level_id == 6)
                                 @if ($produk->status == '1')
-                                {{-- <td id="harga" name="harga">Rp. {{ number_format($produk->harga-$produk->harga*$produk->promo/100,0,',','.') }}</td> --}}
                                     <td>
                                         <div class="input-group mb-3">
                                             <div class="input-group-prepend">
@@ -141,7 +123,6 @@
                                         </div>
                                     </td>
                                 @else
-                                    {{-- <td name="harga">Rp. {{number_format($produk->harga,0,',','.')}}</td> --}}
                                     <td>
                                         <div class="input-group mb-3">
                                             <div class="input-group-prepend">
@@ -152,38 +133,75 @@
                                     </td>
                                 @endif
                             @endif
-                            {{-- <td><input type="text" name="hasil-{{ $produk->id }}" id="hasil{{$no}}" class="form-control hasil" ></td> --}}
                             <input type="hidden" name="hasil" id="hasil{{$produk->id}}" class="form-control hasil" >
-                            {{-- <td>
-                                <a href="{{ url('hapus-keranjang') }}/{{$produk->id}}" class="btn btn-danger btn-sm" onclick="return confirm('Yakin Ingin Di Haapus')"><i class="fas fa-trash"></i></a>    
-                            </td> --}}
                         </tr>
-                        {{-- @endforeach --}}
                         <tr>
                             <td colspan="3" align="right" style="font-weight: bold;">Total Harga</td>
 
-                            {{-- <td style="width:200px;"><input type="text" name="total_harga" class="form-control total_harga" id="total_harga" value="" readonly></td> --}}
-                        @if ($produk->status == '1')
-                            {{-- <td><input type="number" name="harga-{{ $produk->id }}" min="1" placeholder="1" class="form-control harga{{$no}}" id="rupiah" value="{{ $produk->harga-$produk->harga*$produk->promo/100}}" readonly></td> --}}
-                            <td style="width:200px;">
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">Rp</span>
-                                    </div>
-                                    <input type="number" name="total_harga"  placeholder="1" class="form-control total_harga" id="total_harga" value="{{ $produk->harga-$produk->harga*$produk->promo_gold/100}}" readonly>
-                                </div>
-                            </td>
-                        @else
-                            {{-- <td><input type="number" name="harga-{{ $produk->id }}" min="1" placeholder="1" class="form-control harga{{$no}}" id="rupiah" value="{{ $produk->harga}}" readonly></td> --}}
-                            <td style="width:200px;">
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">Rp</span>
-                                    </div>
-                                    <input type="number" name="total_harga"  placeholder="1" class="form-control total_harga" id="total_harga" value="{{ $produk->harga}}" readonly>
-                                </div>
-                            </td>
-                        @endif
+
+                        @if ($user->level_id == 4)
+                                @if ($produk->status == '1')
+                                    <td>
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">Rp</span>
+                                            </div>
+                                            {{-- <input type="number" name="harga" min="1" placeholder="1" class="form-control harga" value="{{ $produk->harga-$produk->harga*$produk->promo_bronze/100 }}" readonly> --}}
+                                            <input type="number" name="total_harga"  placeholder="1" class="form-control total_harga" id="total_harga" value="{{ $produk->harga-$produk->harga*$produk->promo_bronze/100}}" readonly>
+                                        </div>
+                                    </td>
+                                @else
+                                    <td>
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">Rp</span>
+                                            </div>
+                                            {{-- <input type="number" name="harga" min="1" placeholder="1" class="form-control harga" value="{{ $produk->harga }}" readonly> --}}
+                                            <input type="number" name="total_harga"  placeholder="1" class="form-control total_harga" id="total_harga" value="{{ $produk->harga}}" readonly>
+                                        </div>
+                                    </td>
+                                @endif
+                            @elseif($user->level_id == 5)
+                                @if ($produk->status == '1')
+                                    <td>
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">Rp</span>
+                                            </div>
+                                            <input type="number" name="total_harga"  placeholder="1" class="form-control total_harga" id="total_harga" value="{{ $produk->harga-$produk->harga*$produk->promo_silver/100}}" readonly>
+                                        </div>
+                                    </td>
+                                @else
+                                    <td>
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">Rp</span>
+                                            </div>
+                                            <input type="number" name="total_harga"  placeholder="1" class="form-control total_harga" id="total_harga" value="{{ $produk->harga}}" readonly>
+                                        </div>
+                                    </td>
+                                @endif
+                            @elseif($user->level_id == 6)
+                                @if ($produk->status == '1')
+                                    <td>
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">Rp</span>
+                                            </div>
+                                            <input type="number" name="total_harga"  placeholder="1" class="form-control total_harga" id="total_harga" value="{{ $produk->harga-$produk->harga*$produk->promo_gold/100}}" readonly>
+                                        </div>
+                                    </td>
+                                @else
+                                    <td>
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">Rp</span>
+                                            </div>
+                                            <input type="number" name="total_harga"  placeholder="1" class="form-control total_harga" id="total_harga" value="{{ $produk->harga}}" readonly>
+                                        </div>
+                                    </td>
+                                @endif
+                            @endif
                         </tr> 
                         <tr>
                             <td colspan="4" align="right">
